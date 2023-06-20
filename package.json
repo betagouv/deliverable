@@ -1,6 +1,6 @@
 {
   "name": "deliverable",
-  "description": "CLI tool to generate your project deliverables your Github repositories.",
+  "description": "CLI tool to generate your project deliverables from your Github repositories.",
   "version": "0.0.0",
   "license": "AGPL-3.0-or-later",
   "type": "module",
