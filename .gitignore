@@ -157,3 +157,5 @@ dist
 
 /build/*
 /dist/*
+
+./Deliverable.md
