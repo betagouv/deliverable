@@ -11,6 +11,18 @@ the job for you!
 commit messages (which you should ALWAYS have!) from your main branch to generate a well-formatted Markdown document. If
 you don't have any of those, maybe you should start improving your continuous development practices 😉.
 
+---
+
+- [Demo](#demo)
+- [Features](#features)
+- [Contribute](#contribute)
+
+---
+
+## Demo
+
+![Demo](./docs/demo.gif)
+
 ## Features
 
 _Unchecked features are not yet implemented._
@@ -24,6 +36,7 @@ _Unchecked features are not yet implemented._
 - [x] Retrieve your history between specific dates
 - [ ] Handle multiple repositories
 - [x] Automatically translate your deliverable from English to another language
+- [ ] Be used via standalone binaries for Debian, macOS and Windows (almost done!)
 
 ## Contribute
 
