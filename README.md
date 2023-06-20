@@ -15,11 +15,18 @@ And if you don't have any of those, maybe you should start improving your contin
 
 ---
 
+- [Install](#install)
 - [Demo](#demo)
 - [Features](#features)
 - [Contribute](#contribute)
 
 ---
+
+## Install
+
+Just [download your OS standalone binary from the latest release](https://github.com/betagouv/deliverable/releases).
+
+Or if you prefer to use this repo, you can just run it via `yarn start`.
 
 ## Demo
 
