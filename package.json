@@ -9,7 +9,7 @@
   },
   "scripts": {
     "bundle": "rm -Rf ./dist && yarn build && rollup --config ./config/rollup.config.js",
-    "build:dev": "rm -Rf ./build && tsc",
+    "build": "rm -Rf ./build && tsc",
     "dev": "chokidar \"./src/**/*.ts\" -c \"yarn build && node ./build/index.js\" -d 1000 --initial --silent",
     "dist:": "rm -Rf ./dist && yarn build && rollup --config ./config/rollup.config.js && yarn build && pkg ./dist/deliverable.cjs -d -o ./dist/deliverable -t node18-linux-x64",
     "dist:debian": "yarn bundle && pkg ./dist/deliverable.cjs -d -o ./dist/deliverable -t node18-linux-x64",
