@@ -7,9 +7,11 @@ Writing your project deliverables!
 You can now de-li-ver (ha-ha-ha) yourself by automatizing this task with **Deliverable**, a CLI tool that does (most of)
 the job for you!
 
-**Deliverable** parses either your fancy Github release descriptions, or your pull request subjects, or your nice pull
-commit messages (which you should ALWAYS have!) from your main branch to generate a well-formatted Markdown document. If
-you don't have any of those, maybe you should start improving your continuous development practices 😉.
+**Deliverable** parses either your fancy Github release descriptions, or your pull request subjects, or your
+well-written commit messages (which you should ALWAYS have!) from your main branch to generate a well-formatted Markdown
+document.
+
+And if you don't have any of those, maybe you should start improving your continuous development practices 😉.
 
 ---
 
