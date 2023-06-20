@@ -35,8 +35,10 @@ export function formatRawMarkdownToMarkdownRows(rawMarkdown: string): string[] {
       return [...previousMarkdownRows, line]
     }
 
-    return [...previousMarkdownRows.slice(0, previousMarkdownRows.length - 1), `${lastLine} ${line}`]
+    return [...previousMarkdownRows.slice(0, previousMarkdownRows.length - 1), `${lastLine} ${line}`.trim()]
   }, [] as string[])
 
-  return markdownRows
+  const markdownRowsWithoutTrailingEmptyRows = markdownRows.join('\n').trim().split('\n')
+
+  return markdownRowsWithoutTrailingEmptyRows
 }
