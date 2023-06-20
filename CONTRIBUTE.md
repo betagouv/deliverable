@@ -1,0 +1,21 @@
+# Contribute
+
+## Getting Started
+
+1. Run `yarn && yarn setup`.
+2. Follow the CLI instructions.
+3. Run `yarn start` to run the CLI tool in development mode while .
+
+You can also try to run `yarn dev` to run the CLI tool while watching for code changes, but it doesn't work very well
+(using nodemon makes it even worst than using chokidar).
+
+## Run unit tests
+
+Run `yarn test` or `yarn test:watch`.
+
+## Generate a binary executable
+
+Run `yarn dist`.
+
+_Be aware you can't generate a binary executable for a platform other than the one you're running on unless you use
+virtual machines._

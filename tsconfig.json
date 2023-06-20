@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "outDir": "./build",
+    "target": "ES2022"
+  },
+  "exclude": ["build/**", "config/**", "node_modules/**"]
+}
