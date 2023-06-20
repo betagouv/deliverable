@@ -22,16 +22,7 @@
       {
         "assets": [
           {
-            "path": "./dist/deliverable-linux-x64-v${nextRelease.version}",
-            "label": "Linux binary (x64)"
-          },
-          {
-            "path": "./dist/deliverable-macos-x64-v${nextRelease.version}",
-            "label": "macOS binary (x64)"
-          },
-          {
-            "path": "./dist/deliverable-windows-x64-v${nextRelease.version}.exe",
-            "label": "Windows binary (x64)"
+            "path": "dist/**"
           }
         ]
       }
