@@ -40,9 +40,9 @@ jobs:
       - name: Generate macOS binary
         if: ${{ matrix.os == 'macos-latest' }}
         run: yarn dist:macos
-      - name: Generate Debian binary
+      - name: Generate Linux binary
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: yarn dist:debian
+        run: yarn dist:linux
       - name: Generate Windows binary
         if: ${{ matrix.os == 'windows-latest' }}
         run: yarn dist:windows
