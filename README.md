@@ -23,7 +23,7 @@ _Unchecked features are not yet implemented._
   - [ ] Commits messages history
 - [x] Retrieve your history between specific dates
 - [ ] Handle multiple repositories
-- [ ] Automatically translate your deliverable from English to another language
+- [x] Automatically translate your deliverable from English to another language
 
 ## Contribute
 
