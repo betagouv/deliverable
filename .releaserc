@@ -1,0 +1,40 @@
+{
+  "branches": [
+    "main"
+  ],
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "./scripts/release.sh ${nextRelease.version}"
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "angular"
+      }
+    ],
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/github",
+      {
+        "assets": [
+          {
+            "path": "./dist/deliverable-linux-x64-v${nextRelease.version}",
+            "label": "Linux binary (x64)"
+          },
+          {
+            "path": "./dist/deliverable-macos-x64-v${nextRelease.version}",
+            "label": "macOS binary (x64)"
+          },
+          {
+            "path": "./dist/deliverable-windows-x64-v${nextRelease.version}.exe",
+            "label": "Windows binary (x64)"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -15,7 +15,7 @@ Run `yarn test` or `yarn test:watch`.
 
 ## Generate a binary executable
 
-Run `yarn dist`.
+Run `yarn dist:linux`, `yarn dist:macos` or `yarn dist:windows`.
 
 _Be aware you can't generate a binary executable for a platform other than the one you're running on unless you use
 virtual machines._

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit when any command fails
+set -e
+
 echo ">>> Creating .env file..."
 cp ./.env.example ./.env
 
