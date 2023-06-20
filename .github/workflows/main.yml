@@ -21,7 +21,7 @@ jobs:
         run: yarn test --coverage
 
   dist:
-    name: Generate Binary
+    name: Generate binary
     if: ${{ !startsWith(github.head_ref, 'ci-release-v') }}
     strategy:
       matrix:
