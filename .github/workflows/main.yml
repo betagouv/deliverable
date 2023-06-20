@@ -70,13 +70,16 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: binaries
-          path: |
-            ./dist/deliverable-linux-x64
-            ./dist/deliverable-macos-x64
-            ./dist/deliverable-windows-x64.exe
+          path: ./dist
       - name: Check
         run: |
           echo $PWD
+          ls -la .
+          ls -la ./dist
+      - name: Test release script
+        run: ./scripts/release.sh 1.2.3
+      - name: Check
+        run: |
           ls -la .
           ls -la ./dist
       # - name: Setup
