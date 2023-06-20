@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/betagouv/deliverable/compare/v1.0.0...v1.0.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* **release:** add glob path for binaries in @semantic-release/github assets ([d618f7f](https://github.com/betagouv/deliverable/commit/d618f7fa110fecf7d1d0ff2d036a3037adb12a24))
+
 # 1.0.0 (2023-06-20)
 
 
