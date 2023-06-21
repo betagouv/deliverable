@@ -1,19 +1,19 @@
 import dayjs from 'dayjs'
-import { GithubRepositoryRelease } from '../api/types'
-import { DeliverableChapter } from '../types'
-import { isEmpty } from '../utils/isEmpty.js'
 
-interface GithubRepositoryReleaseWithPublishedAt extends GithubRepositoryRelease {
+import { GithubRelease } from '../api/types'
+import { isEmpty } from '../utils/isEmpty.js'
+import { DeliverableChapter } from '../types'
+
+interface GithubReleaseWithPublishedAt extends GithubRelease {
   published_at: string
 }
 
 const hasPublishedAt = (
-  githubRepositoryRelease: GithubRepositoryRelease,
-): githubRepositoryRelease is GithubRepositoryReleaseWithPublishedAt =>
-  typeof githubRepositoryRelease.published_at === 'string'
+  githubRepositoryRelease: GithubRelease,
+): githubRepositoryRelease is GithubReleaseWithPublishedAt => typeof githubRepositoryRelease.published_at === 'string'
 
-export function mapGithubRepositoryReleasesToDeliverableChapters(
-  githubRepositoryReleases: GithubRepositoryRelease[],
+export function mapGithubReleasesToDeliverableChapters(
+  githubRepositoryReleases: GithubRelease[],
 ): DeliverableChapter[] {
   const deliverableChapters: DeliverableChapter[] = githubRepositoryReleases
     .filter(hasPublishedAt)

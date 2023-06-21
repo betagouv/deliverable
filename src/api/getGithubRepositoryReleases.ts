@@ -4,7 +4,7 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js'
 
 import { octokit } from './octokit.js'
-import { GithubRepositoryRelease } from './types'
+import { GithubRelease } from './types'
 import { spinner } from '../utils/spinner.js'
 import { waitFor } from '../utils/waitFor.js'
 
@@ -14,19 +14,19 @@ dayjs.extend(isSameOrBefore)
 
 type GetGithubRepositoryReleasesInternals = {
   page: number
-  previousGithubApiRepositoryReleases: GithubRepositoryRelease[]
+  previousGithubApiRepositoryReleases: GithubRelease[]
 }
 
 export async function getGithubRepositoryReleases(
   repositoryOwner: string,
   repositoryName: string,
-  from: Date | null,
-  to: Date | null,
+  fromDate: Date | null,
+  toDate: Date | null,
   { page, previousGithubApiRepositoryReleases }: GetGithubRepositoryReleasesInternals = {
     page: 0,
     previousGithubApiRepositoryReleases: [],
   },
-): Promise<GithubRepositoryRelease[]> {
+): Promise<GithubRelease[]> {
   if (page > 0) {
     // Prevent Github API throttling
     await waitFor(1000)
@@ -47,25 +47,25 @@ export async function getGithubRepositoryReleases(
   ]
 
   if (nextGithubApiRepositoryReleases.length === 100) {
-    return await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to, {
+    return await getGithubRepositoryReleases(repositoryOwner, repositoryName, fromDate, toDate, {
       page: page + 1,
       previousGithubApiRepositoryReleases: currentGithubApiRepositoryReleases,
     })
   }
 
-  const githubRepositoryReleases: GithubRepositoryRelease[] = currentGithubApiRepositoryReleases
+  const githubRepositoryReleases: GithubRelease[] = currentGithubApiRepositoryReleases
     .filter(({ draft, prerelease }) => !draft && !prerelease)
     .filter(({ published_at }) => {
-      if (from) {
-        if (to) {
-          return dayjs(published_at).isBetween(from, to, 'day')
+      if (fromDate) {
+        if (toDate) {
+          return dayjs(published_at).isBetween(fromDate, toDate, 'day')
         }
 
-        return dayjs(published_at).isSameOrAfter(from, 'day')
+        return dayjs(published_at).isSameOrAfter(fromDate, 'day')
       }
 
-      if (to) {
-        return dayjs(published_at).isSameOrBefore(to, 'day')
+      if (toDate) {
+        return dayjs(published_at).isSameOrBefore(toDate, 'day')
       }
 
       return true

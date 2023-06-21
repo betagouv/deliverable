@@ -1,78 +1,70 @@
 // We don't use `transformer` prop in `input({ ... })` because that makes the input quite laggy.
 
-import { input } from '@inquirer/prompts'
 import { translate } from '@vitalets/google-translate-api'
-import dayjs from 'dayjs'
 import dotenv from 'dotenv'
 import { $ } from 'execa'
 import { writeFile } from 'fs/promises'
 
+import { getGithubRepository } from './api/getGithubRepository.js'
 import { getGithubRepositoryReleases } from './api/getGithubRepositoryReleases.js'
 import { mapDeliverableChaptersToMarkdownRows } from './mappers/mapDeliverableChaptersToMarkdownRows.js'
-import { mapGithubRepositoryReleasesToDeliverableChapters } from './mappers/mapGithubRepositoryReleasesToDeliverableChapters.js'
-import { initializeConsole } from './utils/initializeConsole.js'
+import { mapGithubCommitsToDeliverableChapters } from './mappers/mapGithubCommitsToDeliverableChapters.js'
+import { mapGithubReleasesToDeliverableChapters } from './mappers/mapGithubReleasesToDeliverableChapters.js'
+import { hasPandoc } from './utils/hasPandoc.js'
 import { spinner } from './utils/spinner.js'
-import { validateDateInput } from './validators/validateDateInput.js'
-import { validateRepositoryInput } from './validators/validateRepositoryInput.js'
 
 import './utils/disableNodeExperimentalWarnings.js'
-import { isEmpty } from './utils/isEmpty.js'
-import { hasPandoc } from './utils/hasPandoc.js'
-import { exec } from 'child_process'
+import { promptUserForOptions } from './promptUserForOptions.js'
+import { DeliverableChapter, Source } from './types.js'
+import { getGithubRepositoryCommits } from './api/getGithubRepositoryCommits.js'
 
 dotenv.config()
 
 async function start() {
-  initializeConsole()
+  const { from, repositoryDefaultBranch, repositoryName, repositoryOwner, source, targetLanguage, to } =
+    await promptUserForOptions()
 
-  // ---------------------------------------------------------------------------
-  // Prompt user for parameters
+  let deliverableChapters: DeliverableChapter[]
 
-  const rawRepository = await input({
-    message: 'Repository (i.e.: "betagouv/api.gouv.fr" or "https://github.com/betagouv/api.gouv.fr"):\n',
-    validate: validateRepositoryInput,
-  })
-  const repository = rawRepository.trim().replace(/\/+$/, '')
-  console.log()
+  switch (source) {
+    case Source.COMMIT_MESSAGE_HISTORY:
+      // Fetch GitHub repository commits
+      spinner.start(`Fetching GitHub commits from "${repositoryOwner}/${repositoryName}#${repositoryDefaultBranch}"...`)
+      const githubCommits = await getGithubRepositoryCommits(
+        repositoryDefaultBranch,
+        repositoryOwner,
+        repositoryName,
+        from,
+        to,
+      )
+      spinner.succeed(
+        `Fetched ${githubCommits.length} GitHub commits from "${repositoryOwner}/${repositoryName}#${repositoryDefaultBranch}".`,
+      )
 
-  const rawFromAsString = await input({
-    message: 'From month ("YYYY/MM", "YYYYMM", or just leave empty to skip it):\n',
-    validate: validateDateInput,
-  })
-  const fromAsString = rawFromAsString.trim()
-  if (fromAsString.length) console.log()
+      spinner.start(`Generating Deliverable Markdown source...`)
+      // Map GitHub repository releases to Deliverable chapters
+      deliverableChapters = mapGithubCommitsToDeliverableChapters(githubCommits)
 
-  const rawToAsString = await input({
-    message: 'To month ("YYYY/MM", "YYYYMM", or just leave empty to skip it):\n',
-    validate: validateDateInput,
-  })
-  const toAsString = rawToAsString.trim()
-  if (toAsString.length) console.log()
+      break
 
-  const rawTargetLanguage = await input({
-    message: 'Target language (i.e.: "fr", "jp", or just leave empty to skip it):\n',
-  })
-  const targetLanguage = !isEmpty(rawTargetLanguage) ? rawTargetLanguage.trim().toLowerCase() : null
-  if (targetLanguage) console.log()
+    case Source.RELEASE_HISTORY:
+      // Fetch GitHub repository releases
+      spinner.start(`Fetching GitHub releases from "${repositoryOwner}/${repositoryName}"...`)
+      const githubReleases = await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to)
+      spinner.succeed(`Fetched ${githubReleases.length} GitHub releases from "${repositoryOwner}/${repositoryName}".`)
 
-  // ---------------------------------------------------------------------------
-  // Generate Deliverable Markdown file
+      spinner.start(`Generating Deliverable Markdown source...`)
+      // Map GitHub repository releases to Deliverable chapters
+      deliverableChapters = mapGithubReleasesToDeliverableChapters(githubReleases)
 
-  // Fetch GitHub repository releases
-  const [repositoryOwner, repositoryName] = repository.split('/').splice(-2)
-  spinner.start(`Fetching GitHub repository releases from "${repositoryOwner}/${repositoryName}"...`)
-  const from = !isEmpty(fromAsString) ? dayjs(fromAsString).startOf('month').toDate() : null
-  const to = !isEmpty(toAsString) ? dayjs(toAsString).endOf('month').toDate() : null
-  const githubRepositoryReleases = await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to)
-  spinner.succeed(
-    `Fetched ${githubRepositoryReleases.length} GitHub repository releases from "${repositoryOwner}/${repositoryName}".`,
-  )
+      break
 
-  spinner.start(`Generating Deliverable Markdown source...`)
-  // Map GitHub repository releases to clean and normalized Markdown rows
-  const deliverableChapters = mapGithubRepositoryReleasesToDeliverableChapters(githubRepositoryReleases)
+    default:
+      throw new Error(`Unknown source "${source}".`)
+  }
+
+  // Generate and merge Deliverable Markdown rows into a single Markdown source
   const deliverableMarkdownRows = mapDeliverableChaptersToMarkdownRows(deliverableChapters)
-  // Merge Markdown rows into a single Markdown source
   const deliverableMarkdownSource = deliverableMarkdownRows.join('\n')
   spinner.succeed(`Deliverable Markdown source generated.`)
 
@@ -96,7 +88,7 @@ async function start() {
 
   if (await hasPandoc()) {
     const deliverableDocxFilePath = `${process.cwd()}/Deliverable.docx`
-    spinner.start(`Writting Deliverable DOCX source "${deliverableDocxFilePath}"...`)
+    spinner.start(`Writting Deliverable DOCX source to "${deliverableDocxFilePath}"...`)
     await $`pandoc ${deliverableMarkdownFilePath} -f markdown -t docx -s -o ${deliverableDocxFilePath}`
     spinner.succeed(`Deliverable DOCX source written to "${deliverableDocxFilePath} done.`)
   }
@@ -106,3 +98,11 @@ async function start() {
 }
 
 start()
+
+// async function test() {
+//   const res = await getGithubRepository('betagouv', 'api.gouv.fr')
+
+//   console.log(res)
+// }
+
+// test()

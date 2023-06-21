@@ -10,7 +10,7 @@
   "scripts": {
     "bundle": "rm -Rf ./dist && yarn build && rollup --config ./config/rollup.config.js",
     "build": "rm -Rf ./build && tsc",
-    "dev": "chokidar \"./src/**/*.ts\" -c \"yarn build && node ./src/build/index.js\" -d 1000 --initial --silent",
+    "dev": "chokidar \"./src/**/*.ts\" -c \"yarn build && node ./build/src/index.js\" -d 1000 --initial --silent",
     "dist:": "rm -Rf ./dist && yarn build && rollup --config ./config/rollup.config.js && yarn build && pkg ./dist/deliverable.cjs -d -o ./dist/deliverable -t node18-linux-x64",
     "dist:linux": "yarn bundle && pkg ./dist/deliverable.cjs -d -o ./dist/deliverable-linux-x64 -t node18-linux-x64 && chmod +x ./dist/deliverable-linux-x64",
     "dist:macos": "yarn bundle && pkg ./dist/deliverable.cjs -d -o ./dist/deliverable-macos-x64 -t node18-macos-x64 && chmod +x ./dist/deliverable-macos-x64",

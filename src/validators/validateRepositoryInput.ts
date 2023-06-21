@@ -1,4 +1,4 @@
-import { octokit } from '../api/octokit.js'
+import { getGithubRepository } from '../api/getGithubRepository.js'
 import { isEmpty } from '../utils/isEmpty.js'
 
 export async function validateRepositoryInput(rawRepositoryInput: string): Promise<boolean | string> {
@@ -14,10 +14,7 @@ export async function validateRepositoryInput(rawRepositoryInput: string): Promi
   }
 
   try {
-    await octokit.rest.repos.get({
-      owner: repositoryOwnerInput,
-      repo: repositoryNameInput,
-    })
+    await getGithubRepository(repositoryOwnerInput, repositoryNameInput)
   } catch (err: any) {
     if (err && err.status === 404) {
       return 'This Github repository does not exist.'

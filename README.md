@@ -17,6 +17,7 @@ And if you don't have any of those, maybe you should start improving your contin
 
 - [Install](#install)
 - [Usage](#usage)
+  - [Advice](#advice)
 - [Demo](#demo)
 - [Features](#features)
 - [Contribute](#contribute)
@@ -41,6 +42,11 @@ Or if you prefer to clone this repo, you can just run it via `yarn && yarn setup
 
 Just run the binary in a CLI (i.e.: `./deliverable-linux-x64-1.0.4`) and you will be prompted to setup your options.
 
+### Advice
+
+> It's generally better to use either **Releases History** or **Merged Pull Requests History**,
+> rather than **Commits Messages History**, since the latter is more verbose and less readable.
+
 ## Demo
 
 ![Demo](./docs/demo.gif)
@@ -52,9 +58,9 @@ _Unchecked features are not yet implemented._
 **Deliverable** can:
 
 - [x] Generate a well-formatted Markdown and DOCX document from your:
-  - [x] Github releases descriptions
-  - [ ] Merged pull requests subjects
-  - [ ] Commits messages history
+  - [x] Releases History
+  - [ ] Merged Pull Requests History
+  - [x] Commits Messages History
 - [x] Retrieve your history between specific dates
 - [ ] Handle multiple repositories
 - [x] Automatically translate your deliverable from English to another language
