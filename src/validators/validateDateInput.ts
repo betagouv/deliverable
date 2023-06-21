@@ -8,8 +8,16 @@ export function validateDateInput(rawDateAsStringInput: string): boolean | strin
     return true
   }
 
+  if (!/^20\d{2}\/?[0-1][0-9]$/.test(dateAsStringInput)) {
+    return 'Invalid date format. It must either be "YYYY/MM", "YYYYMM", or left empty.'
+  }
+
   if (!dayjs(dateAsStringInput).isValid()) {
-    return 'Invalid date format. It must either be "YYYY/MM/DD", "YYYY/MM", or left empty.'
+    return 'Unable to parse this date. It must either be "YYYY/MM", "YYYYMM", or left empty.'
+  }
+
+  if (dayjs(dateAsStringInput).isAfter(dayjs())) {
+    return 'This date is in the future. It can only be in the past.'
   }
 
   return true

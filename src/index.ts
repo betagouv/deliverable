@@ -23,13 +23,13 @@ async function start() {
   const repository = rawRepository.trim().replace(/\/+$/, '')
 
   const rawFromAsString = await input({
-    message: 'From date ("YYYY/MM/DD", "YYYY/MM", or just leave empty to skip it):',
+    message: 'From month ("YYYY/MM", "YYYYMM", or just leave empty to skip it):',
     validate: validateDateInput,
   })
   const fromAsString = rawFromAsString.trim()
 
   const rawToAsString = await input({
-    message: 'To date ("YYYY/MM/DD", "YYYY/MM", or just leave empty to skip it):',
+    message: 'To month ("YYYY/MM", "YYYYMM", or just leave empty to skip it):',
     validate: validateDateInput,
   })
   const toAsString = rawToAsString.trim()
@@ -41,9 +41,11 @@ async function start() {
 
   // We fetch the GitHub repository releases
   const [repositoryOwner, repositoryName] = repository.split('/').splice(-2)
-  const from = !isEmpty(fromAsString) ? dayjs(fromAsString).toDate() : null
-  const to = !isEmpty(toAsString) ? dayjs(toAsString).toDate() : null
-  const githubRepositoryReleases = await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to)
+  const from = !isEmpty(fromAsString) ? dayjs(fromAsString).startOf('month').toDate() : null
+  const to = !isEmpty(toAsString) ? dayjs(toAsString).endOf('month').toDate() : null
+  console.log(from?.toISOString())
+  console.log(to?.toISOString())
+  /*const githubRepositoryReleases = await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to)
 
   console.debug(`Parsing and formatting chapters...`)
 
@@ -66,7 +68,7 @@ async function start() {
   await writeFile(deliverableFilePath, translatedDeliverableMarkdownSource, 'utf-8')
 
   console.debug(`Done:\n\n`)
-  console.debug(translatedDeliverableMarkdownSource)
+  console.debug(translatedDeliverableMarkdownSource)*/
 }
 
 start()

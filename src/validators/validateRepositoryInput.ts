@@ -21,7 +21,7 @@ export async function validateRepositoryInput(rawRepositoryInput: string): Promi
     })
   } catch (err: any) {
     if (err && err.status === 404) {
-      return 'The Github repository does not exist.'
+      return 'This Github repository does not exist.'
     }
 
     console.log(err)
