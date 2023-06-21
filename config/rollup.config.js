@@ -4,7 +4,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import replace from '@rollup/plugin-replace'
 
 export default {
-  input: './build/src/index.js',
+  input: './build/index.js',
   output: {
     file: './dist/deliverable.cjs',
     format: 'cjs',
