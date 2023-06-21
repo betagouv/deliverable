@@ -9,9 +9,10 @@ import { isEmpty } from './utils/isEmpty.js'
 import { validateDateInput } from './validators/validateDateInput.js'
 import { validateRepositoryInput } from './validators/validateRepositoryInput.js'
 
-import './utils/disableNodeExperimentalWarnings.js'
 import { getGithubRepository } from './api/getGithubRepository.js'
 import { Source } from './types.js'
+
+import './utils/disableNodeExperimentalWarnings.js'
 
 dotenv.config()
 
@@ -40,7 +41,7 @@ export async function promptUserForOptions(): Promise<{
   const { default_branch: repositoryDefaultBranch } = await getGithubRepository(repositoryOwner, repositoryName)
 
   // ---------------------------------------------------------------------------
-  // Prompt user for repository owner and name
+  // Prompt user for history source (to generate the Deliverable contents)
 
   const source = await select({
     message: 'What source do you want to use to generate the Deliverable contents?',
