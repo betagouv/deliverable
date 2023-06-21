@@ -1,13 +1,12 @@
-import { pick } from 'ramda'
-import { GithubRepositoryRelease } from './types'
-import { writeFile } from 'fs/promises'
-import { waitFor } from '../utils/waitFor.js'
-import { octokit } from './octokit.js'
-
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween.js'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter.js'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore.js'
+
+import { octokit } from './octokit.js'
+import { GithubRepositoryRelease } from './types'
+import { spinner } from '../utils/spinner.js'
+import { waitFor } from '../utils/waitFor.js'
 
 dayjs.extend(isBetween)
 dayjs.extend(isSameOrAfter)
@@ -28,10 +27,12 @@ export async function getGithubRepositoryReleases(
     previousGithubApiRepositoryReleases: [],
   },
 ): Promise<GithubRepositoryRelease[]> {
-  console.debug(`Fetching Github repository releases for ${repositoryOwner}/${repositoryName} (page ${page + 1})...`)
+  if (page > 0) {
+    // Prevent Github API throttling
+    await waitFor(1000)
+  }
 
-  // Prevent Github API throttling
-  await waitFor(1000)
+  spinner.text = `Fetching GitHub repository releases from "${repositoryOwner}/${repositoryName}" (page ${page + 1})...`
 
   const { data: nextGithubApiRepositoryReleases } = await octokit.rest.repos.listReleases({
     owner: repositoryOwner,
@@ -69,7 +70,15 @@ export async function getGithubRepositoryReleases(
 
       return true
     })
-    .map(pick(['body', 'name', 'published_at', 'tag_name', 'url']) as any)
+    .map(({ body, draft, name, prerelease, published_at, tag_name, url }) => ({
+      body,
+      draft,
+      name,
+      prerelease,
+      published_at,
+      tag_name,
+      url,
+    }))
 
   return githubRepositoryReleases
 }

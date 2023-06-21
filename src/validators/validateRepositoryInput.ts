@@ -1,6 +1,5 @@
-import { isEmpty } from 'ramda'
-
 import { octokit } from '../api/octokit.js'
+import { isEmpty } from '../utils/isEmpty.js'
 
 export async function validateRepositoryInput(rawRepositoryInput: string): Promise<boolean | string> {
   const repositoryInput = rawRepositoryInput.trim().replace(/\/+$/, '')

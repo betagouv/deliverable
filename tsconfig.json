@@ -4,6 +4,7 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "outDir": "./build",
+    "resolveJsonModule": true,
     "target": "ES2022"
   },
   "exclude": ["build/**", "config/**", "node_modules/**"]

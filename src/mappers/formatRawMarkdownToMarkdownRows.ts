@@ -1,5 +1,3 @@
-import { last } from 'ramda'
-
 export function formatRawMarkdownToMarkdownRows(rawMarkdown: string): string[] {
   const cleanMarkdown = rawMarkdown
     // Remove HTML comments
@@ -11,7 +9,7 @@ export function formatRawMarkdownToMarkdownRows(rawMarkdown: string): string[] {
     .replace(/\s+/, ' ')
 
   const markdownRows = cleanMarkdown.split('\n').reduce((previousMarkdownRows, rawLine) => {
-    const lastLine = last(previousMarkdownRows)
+    const lastLine = previousMarkdownRows.length > 0 ? previousMarkdownRows[previousMarkdownRows.length - 1] : undefined
     const line = rawLine.trim()
 
     if (lastLine && lastLine.length === 0 && line.length === 0) {

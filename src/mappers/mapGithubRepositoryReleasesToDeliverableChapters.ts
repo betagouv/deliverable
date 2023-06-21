@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { GithubRepositoryRelease } from '../api/types'
 import { DeliverableChapter } from '../types'
-import { isEmpty } from 'ramda'
+import { isEmpty } from '../utils/isEmpty'
 
 interface GithubRepositoryReleaseWithPublishedAt extends GithubRepositoryRelease {
   published_at: string
