@@ -3,9 +3,17 @@
 # Exit when any command fails
 set -e
 
-echo ">>> Creating .env file..."
-cp ./.env.example ./.env
+echo ""
+echo ">>> Installing Git hooks..."
+husky install
 
+if [ ! -f ./.env ]; then
+  echo ""
+  echo ">>> Creating .env file..."
+  cp ./.env.example ./.env
+fi
+
+echo ""
 echo ">>> Done."
 
 echo ""

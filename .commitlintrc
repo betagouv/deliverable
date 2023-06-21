@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "@commitlint/config-conventional"
+  ],
+  "helpUrl": "https://github.com/angular/angular/blob/main/CONTRIBUTING.md#commit",
+  "rules": {
+    "body-max-length": [
+      2,
+      "always",
+      1000
+    ],
+    "body-max-line-length": [
+      2,
+      "always",
+      1000
+    ]
+  }
+}
