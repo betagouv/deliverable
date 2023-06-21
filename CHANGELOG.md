@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/betagouv/deliverable/compare/v1.0.3...v1.0.4) (2023-06-21)
+
+
+### Bug Fixes
+
+* add missing previous chapters inclusion for deliverable generation ([eb3e538](https://github.com/betagouv/deliverable/commit/eb3e5380f7553615c3075c8c73bd4ad76361f974))
+
 ## [1.0.3](https://github.com/betagouv/deliverable/compare/v1.0.2...v1.0.3) (2023-06-21)
 
 
