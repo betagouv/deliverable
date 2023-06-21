@@ -1,4 +1,20 @@
-# Deliverable
+<p align="center">
+  <h1 align="center">Deliverable</h1>
+</p>
+
+<p align="center">
+  <a aria-label="Go to the latest Github release" href="https://github.com/betagouv/deliverable/releases">
+    <img alt="Latest GitHub release version including pre-releases" src="https://img.shields.io/github/v/release/betagouv/deliverable?include_prereleases&sort=semver&style=for-the-badge&labelColor=000">
+  </a>
+  <a aria-label="Open the AGPL-3.0 license" href="https://github.com/betagouv/deliverable/blob/main/LICENSE">
+    <img alt="AGPL-3.0 license" src="https://img.shields.io/github/license/betagouv/deliverable?style=for-the-badge&labelColor=000">
+  </a>
+  <a aria-label="Go to the main branch workflow history" href="https://github.com/betagouv/deliverable/actions?query=branch%3Amain+workflow%3AUnit">
+    <img alt="Latest workflow status for main branch" src="https://img.shields.io/github/actions/workflow/status/betagouv/deliverable/main.yml?branch=main&label=Build&style=for-the-badge&labelColor=000">
+  </a>
+</p>
+
+---
 
 What's the most annoying obligation in a developer life other than accounting?
 
