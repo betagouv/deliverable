@@ -26,7 +26,7 @@ And if you don't have any of those, maybe you should start improving your contin
 
 Just [download your OS standalone binary from the latest release](https://github.com/betagouv/deliverable/releases).
 
-Or if you prefer to use this repo, you can just run it via `yarn start`.
+Or if you prefer to clone this repo, you can just run it via `yarn && yarn start`.
 
 ## Demo
 
@@ -45,7 +45,7 @@ _Unchecked features are not yet implemented._
 - [x] Retrieve your history between specific dates
 - [ ] Handle multiple repositories
 - [x] Automatically translate your deliverable from English to another language
-- [ ] Be used via standalone binaries for Debian, macOS and Windows (almost done!)
+- [x] Be used via standalone binaries for Debian, macOS and Windows
 
 ## Contribute
 
