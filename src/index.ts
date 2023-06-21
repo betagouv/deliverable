@@ -39,36 +39,33 @@ async function start() {
   })
   const targetLanguage = !isEmpty(rawTargetLanguage.trim()) ? rawTargetLanguage.trim().toLowerCase() : null
 
-  // We fetch the GitHub repository releases
+  // Fetch GitHub repository releases
   const [repositoryOwner, repositoryName] = repository.split('/').splice(-2)
   const from = !isEmpty(fromAsString) ? dayjs(fromAsString).startOf('month').toDate() : null
   const to = !isEmpty(toAsString) ? dayjs(toAsString).endOf('month').toDate() : null
-  console.log(from?.toISOString())
-  console.log(to?.toISOString())
-  /*const githubRepositoryReleases = await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to)
+  const githubRepositoryReleases = await getGithubRepositoryReleases(repositoryOwner, repositoryName, from, to)
 
   console.debug(`Parsing and formatting chapters...`)
 
-  // We map the GitHub repository releases to clean and normalized Markdown rows
+  // Map GitHub repository releases to clean and normalized Markdown rows
   const deliverableChapters = mapGithubRepositoryReleasesToDeliverableChapters(githubRepositoryReleases)
   const deliverableMarkdownRows = mapDeliverableChaptersToMarkdownRows(deliverableChapters)
 
-  // We merge the Markdown rows into a single Markdown source
+  // Merge Markdown rows into a single Markdown source
   const deliverableMarkdownSource = deliverableMarkdownRows.join('\n')
 
-  // We translate it into the target language
+  // Translate Markdown source to the target language
   console.debug(`Translating Markdown output from "en" to "${targetLanguage}"...`)
   const { text: translatedDeliverableMarkdownSource } = targetLanguage
     ? await translate(deliverableMarkdownSource, { to: targetLanguage })
     : { text: deliverableMarkdownSource }
 
-  // We write the translated Markdown source into a file
+  // Write the translated Markdown source into a file
   const deliverableFilePath = `${process.cwd()}/Deliverable.md`
   console.debug(`Writting Markdown output to "${deliverableFilePath}"...`)
   await writeFile(deliverableFilePath, translatedDeliverableMarkdownSource, 'utf-8')
 
-  console.debug(`Done:\n\n`)
-  console.debug(translatedDeliverableMarkdownSource)*/
+  console.debug(`Done.`)
 }
 
 start()
