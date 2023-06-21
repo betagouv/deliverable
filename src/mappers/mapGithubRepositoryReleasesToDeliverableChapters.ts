@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { GithubRepositoryRelease } from '../api/types'
 import { DeliverableChapter } from '../types'
-import { isEmpty } from '../utils/isEmpty'
+import { isEmpty } from '../utils/isEmpty.js'
 
 interface GithubRepositoryReleaseWithPublishedAt extends GithubRepositoryRelease {
   published_at: string

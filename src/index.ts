@@ -4,6 +4,7 @@ import { input } from '@inquirer/prompts'
 import { translate } from '@vitalets/google-translate-api'
 import dayjs from 'dayjs'
 import dotenv from 'dotenv'
+import { $ } from 'execa'
 import { writeFile } from 'fs/promises'
 
 import { getGithubRepositoryReleases } from './api/getGithubRepositoryReleases.js'
@@ -16,6 +17,8 @@ import { validateRepositoryInput } from './validators/validateRepositoryInput.js
 
 import './utils/disableNodeExperimentalWarnings.js'
 import { isEmpty } from './utils/isEmpty.js'
+import { hasPandoc } from './utils/hasPandoc.js'
+import { exec } from 'child_process'
 
 dotenv.config()
 
@@ -23,7 +26,7 @@ async function start() {
   initializeConsole()
 
   // ---------------------------------------------------------------------------
-  // Ask user for input
+  // Prompt user for parameters
 
   const rawRepository = await input({
     message: 'Repository (i.e.: "betagouv/api.gouv.fr" or "https://github.com/betagouv/api.gouv.fr"):\n',
@@ -53,7 +56,7 @@ async function start() {
   if (targetLanguage) console.log()
 
   // ---------------------------------------------------------------------------
-  // Generate deliverable Markdown file
+  // Generate Deliverable Markdown file
 
   // Fetch GitHub repository releases
   const [repositoryOwner, repositoryName] = repository.split('/').splice(-2)
@@ -83,12 +86,23 @@ async function start() {
   }
 
   // Write translated Markdown source into a file
-  const deliverableFilePath = `${process.cwd()}/Deliverable.md`
-  spinner.start(`Writting Deliverable Markdown source to "${deliverableFilePath}"...`)
-  await writeFile(deliverableFilePath, translatedDeliverableMarkdownSource, 'utf-8')
-  spinner.succeed(`Deliverable Markdown source written to "${deliverableFilePath}".`)
+  const deliverableMarkdownFilePath = `${process.cwd()}/Deliverable.md`
+  spinner.start(`Writting Deliverable Markdown source to "${deliverableMarkdownFilePath}"...`)
+  await writeFile(deliverableMarkdownFilePath, translatedDeliverableMarkdownSource, 'utf-8')
+  spinner.succeed(`Deliverable Markdown source written to "${deliverableMarkdownFilePath}".`)
 
-  spinner.succeed(`Done.\n\n`).stop()
+  // ---------------------------------------------------------------------------
+  // Generate Deliverable DOCX file
+
+  if (await hasPandoc()) {
+    const deliverableDocxFilePath = `${process.cwd()}/Deliverable.docx`
+    spinner.start(`Writting Deliverable DOCX source "${deliverableDocxFilePath}"...`)
+    await $`pandoc ${deliverableMarkdownFilePath} -f markdown -t docx -s -o ${deliverableDocxFilePath}`
+    spinner.succeed(`Deliverable DOCX source written to "${deliverableDocxFilePath} done.`)
+  }
+
+  spinner.stop()
+  console.log('\n')
 }
 
 start()

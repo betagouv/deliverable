@@ -28,7 +28,9 @@
     "@octokit/rest": "19.0.13",
     "@vitalets/google-translate-api": "9.2.0",
     "dayjs": "1.11.8",
-    "ora": "6.3.1"
+    "execa": "7.1.1",
+    "ora": "6.3.1",
+    "which": "3.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "17.6.5",
@@ -44,6 +46,7 @@
     "@swc/jest": "0.2.26",
     "@tsconfig/node18": "1.0.1",
     "@types/node": "20.3.1",
+    "@types/which": "3.0.0",
     "chokidar-cli": "3.0.0",
     "dotenv": "16.3.1",
     "husky": "8.0.3",

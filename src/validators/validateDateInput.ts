@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { isEmpty } from '../utils/isEmpty'
+import { isEmpty } from '../utils/isEmpty.js'
 
 export function validateDateInput(rawDateAsStringInput: string): boolean | string {
   const dateAsStringInput = rawDateAsStringInput.trim()

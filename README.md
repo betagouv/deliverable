@@ -9,13 +9,14 @@ the job for you!
 
 **Deliverable** parses either your fancy Github release descriptions, or your pull request subjects, or your
 well-written commit messages (which you should ALWAYS have!) from your main branch to generate a well-formatted Markdown
-document.
+document as well as a DOCX one.
 
 And if you don't have any of those, maybe you should start improving your continuous development practices 😉.
 
 ---
 
 - [Install](#install)
+- [Usage](#usage)
 - [Demo](#demo)
 - [Features](#features)
 - [Contribute](#contribute)
@@ -24,9 +25,21 @@ And if you don't have any of those, maybe you should start improving your contin
 
 ## Install
 
-Just [download your OS standalone binary from the latest release](https://github.com/betagouv/deliverable/releases).
+Since **Deliverable** generates a Markdown document, installing Pandoc is required if you want to subsequently convert
+it to a DOCX document so you can easily copy/paste it into LibreOffice, OpenOffice, Google Drive, Word, etc.
 
-Or if you prefer to clone this repo, you can just run it via `yarn && yarn start`.
+If **Deliverable** detects the `pandoc` command, it will automatically use it to convert the generated Markdown document
+into a DOCX one.
+
+1. [Install Pandoc](https://pandoc.org/installing.html).
+2. [Download your OS standalone binary from the latest release](https://github.com/betagouv/deliverable/releases).
+3. Under Linux and macOS, you may need to make the binary executable via `chmod +x deliverable-...`.
+
+Or if you prefer to clone this repo, you can just run it via `yarn && yarn setup && yarn start`.
+
+## Usage
+
+Just run the binary in a CLI (i.e.: `./deliverable-linux-x64-1.0.4`) and you will be prompted to setup your options.
 
 ## Demo
 
@@ -38,14 +51,14 @@ _Unchecked features are not yet implemented._
 
 **Deliverable** can:
 
-- [x] Use one of your:
+- [x] Generate a well-formatted Markdown and DOCX document from your:
   - [x] Github releases descriptions
   - [ ] Merged pull requests subjects
   - [ ] Commits messages history
 - [x] Retrieve your history between specific dates
 - [ ] Handle multiple repositories
 - [x] Automatically translate your deliverable from English to another language
-- [x] Be used via standalone binaries for Debian, macOS and Windows
+- [x] Be used via standalone binaries available for Linux, macOS and Windows
 
 ## Contribute
 
