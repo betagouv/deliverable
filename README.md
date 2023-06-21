@@ -44,8 +44,8 @@ Just run the binary in a CLI (i.e.: `./deliverable-linux-x64-1.0.4`) and you wil
 
 ### Advice
 
-> It's generally better to use either **Releases History** or **Merged Pull Requests History**,
-> rather than **Commits Messages History**, since the latter is more verbose and less readable.
+> It's generally better to use either **Releases History** or **Merged Pull Requests History**,<br /> rather than
+> **Commit Messages History**, since the latter is more verbose and less readable.
 
 ## Demo
 

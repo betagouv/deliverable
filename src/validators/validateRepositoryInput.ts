@@ -20,7 +20,7 @@ export async function validateRepositoryInput(rawRepositoryInput: string): Promi
       return 'This Github repository does not exist.'
     }
 
-    console.log(err)
+    console.error(err)
     throw new Error('Something went wrong.')
   }
 

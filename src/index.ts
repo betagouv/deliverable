@@ -5,18 +5,17 @@ import dotenv from 'dotenv'
 import { $ } from 'execa'
 import { writeFile } from 'fs/promises'
 
-import { getGithubRepository } from './api/getGithubRepository.js'
+import { getGithubRepositoryCommits } from './api/getGithubRepositoryCommits.js'
 import { getGithubRepositoryReleases } from './api/getGithubRepositoryReleases.js'
 import { mapDeliverableChaptersToMarkdownRows } from './mappers/mapDeliverableChaptersToMarkdownRows.js'
 import { mapGithubCommitsToDeliverableChapters } from './mappers/mapGithubCommitsToDeliverableChapters.js'
 import { mapGithubReleasesToDeliverableChapters } from './mappers/mapGithubReleasesToDeliverableChapters.js'
+import { promptUserForOptions } from './promptUserForOptions.js'
+import { DeliverableChapter, Source } from './types.js'
 import { hasPandoc } from './utils/hasPandoc.js'
 import { spinner } from './utils/spinner.js'
 
 import './utils/disableNodeExperimentalWarnings.js'
-import { promptUserForOptions } from './promptUserForOptions.js'
-import { DeliverableChapter, Source } from './types.js'
-import { getGithubRepositoryCommits } from './api/getGithubRepositoryCommits.js'
 
 dotenv.config()
 
@@ -94,7 +93,7 @@ async function start() {
   }
 
   spinner.stop()
-  console.log('\n')
+  console.info('\n')
 }
 
 start()

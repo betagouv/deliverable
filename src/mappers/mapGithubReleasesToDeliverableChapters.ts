@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 
 import { GithubRelease } from '../api/types'
-import { isEmpty } from '../utils/isEmpty.js'
 import { DeliverableChapter } from '../types'
+import { isEmpty } from '../utils/isEmpty.js'
 
 interface GithubReleaseWithPublishedAt extends GithubRelease {
   published_at: string
@@ -17,7 +17,7 @@ export function mapGithubReleasesToDeliverableChapters(
 ): DeliverableChapter[] {
   const deliverableChapters: DeliverableChapter[] = githubRepositoryReleases
     .filter(hasPublishedAt)
-    .map(({ body, name, tag_name, published_at }) => ({
+    .map(({ body, name, published_at, tag_name }) => ({
       at: dayjs(published_at).toDate(),
       body: (!isEmpty(body) ? body : null) as string | null,
       title: `${name} (${tag_name})`,

@@ -1,6 +1,7 @@
 import { describe, expect, test } from '@jest/globals'
-import { formatRawMarkdownToMarkdownRows } from '../formatRawMarkdownToMarkdownRows'
 import { readFile } from 'fs/promises'
+
+import { formatRawMarkdownToMarkdownRows } from '../formatRawMarkdownToMarkdownRows'
 
 describe('formatRawMarkdownToMarkdownRows()', () => {
   test('should format input.1.md', async () => {

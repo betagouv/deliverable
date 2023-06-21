@@ -7,5 +7,5 @@
     "resolveJsonModule": true,
     "target": "ES2022"
   },
-  "exclude": ["build/**", "config/**", "node_modules/**"]
+  "exclude": ["build/*", "config/*", "dist/*", "node_modules/*", "scripts/*"]
 }

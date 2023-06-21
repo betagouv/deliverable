@@ -1,0 +1,16 @@
+{
+  "extends": "@ivangabriele/eslint-config-typescript-base",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "ignorePatterns": ["/build/", "/config/", "/dist/", "/scripts/"],
+  "rules": {
+    // We should re-enable this rule
+    "no-case-declarations": ["off"],
+    "no-console": ["error", { "allow": ["clear", "info", "error", "warn"] }],
+
+    "import/extensions": ["off"],
+
+    "no-null/no-null": ["off"]
+  }
+}

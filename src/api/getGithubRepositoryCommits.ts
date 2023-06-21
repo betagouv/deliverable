@@ -37,8 +37,8 @@ export async function getGithubRepositoryCommits(
 
   const { data: nextGithubApiRepositoryCommits } = await octokit.rest.repos.listCommits({
     owner: repositoryOwner,
-    per_page: 100,
     page,
+    per_page: 100,
     repo: repositoryName,
     // SHA or branch to start listing commits from. Default: the repository’s default branch (usually main).
     // Meaning it's unnecessary for our current case. But it can be useful later on.
@@ -50,7 +50,7 @@ export async function getGithubRepositoryCommits(
   const currentGithubApiRepositoryCommits = [...previousGithubApiRepositoryCommits, ...nextGithubApiRepositoryCommits]
 
   if (nextGithubApiRepositoryCommits.length === 100) {
-    return await getGithubRepositoryCommits(repositoryBranch, repositoryOwner, repositoryName, fromDate, toDate, {
+    return getGithubRepositoryCommits(repositoryBranch, repositoryOwner, repositoryName, fromDate, toDate, {
       page: page + 1,
       previousGithubApiRepositoryCommits: currentGithubApiRepositoryCommits,
     })

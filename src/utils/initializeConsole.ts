@@ -1,17 +1,15 @@
-import packageJson from '../../package.json' assert { type: 'json' }
-
 const INTRO = `
 
   █▄─▄▄▀█▄─▄▄─█▄─▄███▄─▄█▄─█─▄█▄─▄▄─█▄─▄▄▀██▀▄─██▄─▄─▀█▄─▄███▄─▄▄─█
   ██─██─██─▄█▀██─██▀██─███▄▀▄███─▄█▀██─▄─▄██─▀─███─▄─▀██─██▀██─▄█▀█
   ▀▄▄▄▄▀▀▄▄▄▄▄▀▄▄▄▄▄▀▄▄▄▀▀▀▄▀▀▀▄▄▄▄▄▀▄▄▀▄▄▀▄▄▀▄▄▀▄▄▄▄▀▀▄▄▄▄▄▀▄▄▄▄▄▀
 
-  v%s
+  v__VERSION__
 
 `
 
 export function initializeConsole() {
   console.clear()
 
-  console.log(INTRO, packageJson.version)
+  console.info(INTRO)
 }

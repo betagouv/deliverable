@@ -1,3 +1,4 @@
+// eslint-disable-next-line lines-around-directive, strict
 'use strict'
 
 const { emitWarning } = process
@@ -11,5 +12,6 @@ process.emitWarning = (warning, ...args) => {
     return
   }
 
+  // eslint-disable-next-line consistent-return
   return emitWarning(warning, ...(args as any))
 }

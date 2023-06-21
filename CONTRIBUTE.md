@@ -11,7 +11,7 @@ And using `nodemon` would make it even worst than using `chokidar`.
 
 ## Run unit tests
 
-Run `yarn test` or `yarn test:watch`.
+Run `yarn test:unit` or `yarn test:unit:watch`.
 
 ## Generate a binary executable
 
@@ -24,7 +24,9 @@ using virtual machines._
 
 Creating new releases is entirely automated via Github Actions when a `feat:` or a `fix:` is merged into `main` branch.
 
-That's why commit messages are linted and must follow [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), specifically [the Angular convention](https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit) which is,
-by far, the most popular one.
+That's why commit messages are linted and must follow
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/), specifically
+[the Angular convention](https://github.com/angular/angular/blob/68a6a07/CONTRIBUTING.md#commit) which is, by far, the
+most popular one.
 
 Release notes and version bumping are also auto-pull-requested and merged into `main` branch via Github Actions.

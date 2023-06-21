@@ -36,8 +36,8 @@ export async function getGithubRepositoryReleases(
 
   const { data: nextGithubApiRepositoryReleases } = await octokit.rest.repos.listReleases({
     owner: repositoryOwner,
-    per_page: 100,
     page,
+    per_page: 100,
     repo: repositoryName,
   })
 
@@ -47,7 +47,7 @@ export async function getGithubRepositoryReleases(
   ]
 
   if (nextGithubApiRepositoryReleases.length === 100) {
-    return await getGithubRepositoryReleases(repositoryOwner, repositoryName, fromDate, toDate, {
+    return getGithubRepositoryReleases(repositoryOwner, repositoryName, fromDate, toDate, {
       page: page + 1,
       previousGithubApiRepositoryReleases: currentGithubApiRepositoryReleases,
     })

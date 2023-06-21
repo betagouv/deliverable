@@ -4,13 +4,12 @@ import { input, select } from '@inquirer/prompts'
 import dayjs from 'dayjs'
 import dotenv from 'dotenv'
 
+import { getGithubRepository } from './api/getGithubRepository.js'
+import { Source } from './types.js'
 import { initializeConsole } from './utils/initializeConsole.js'
 import { isEmpty } from './utils/isEmpty.js'
 import { validateDateInput } from './validators/validateDateInput.js'
 import { validateRepositoryInput } from './validators/validateRepositoryInput.js'
-
-import { getGithubRepository } from './api/getGithubRepository.js'
-import { Source } from './types.js'
 
 import './utils/disableNodeExperimentalWarnings.js'
 
@@ -35,7 +34,7 @@ export async function promptUserForOptions(): Promise<{
     validate: validateRepositoryInput,
   })
   const repository = rawRepository.trim().replace(/\/+$/, '')
-  console.log()
+  console.info()
 
   const [repositoryOwner, repositoryName] = repository.split('/').splice(-2)
   const { default_branch: repositoryDefaultBranch } = await getGithubRepository(repositoryOwner, repositoryName)
@@ -44,7 +43,6 @@ export async function promptUserForOptions(): Promise<{
   // Prompt user for history source (to generate the Deliverable contents)
 
   const source = await select({
-    message: 'What source do you want to use to generate the Deliverable contents?',
     choices: [
       {
         name: `Commit Messages History (from \`${repositoryDefaultBranch}\` branch)`,
@@ -60,6 +58,7 @@ export async function promptUserForOptions(): Promise<{
         value: Source.RELEASE_HISTORY,
       },
     ],
+    message: 'What source do you want to use to generate the Deliverable contents?',
   })
 
   // ---------------------------------------------------------------------------
@@ -70,14 +69,18 @@ export async function promptUserForOptions(): Promise<{
     validate: validateDateInput,
   })
   const fromAsString = rawFromAsString.trim()
-  if (fromAsString.length) console.log()
+  if (fromAsString.length) {
+    console.info()
+  }
 
   const rawToAsString = await input({
     message: 'To month ("YYYY/MM", "YYYYMM", or just leave empty to skip it):\n',
     validate: validateDateInput,
   })
   const toAsString = rawToAsString.trim()
-  if (toAsString.length) console.log()
+  if (toAsString.length) {
+    console.info()
+  }
 
   // ---------------------------------------------------------------------------
   // Prompt user for Deliverable target language (for auto-translation)
@@ -86,7 +89,9 @@ export async function promptUserForOptions(): Promise<{
     message: 'Target language (i.e.: "fr", "jp", or just leave empty to skip it):\n',
   })
   const targetLanguage = !isEmpty(rawTargetLanguage) ? rawTargetLanguage.trim().toLowerCase() : null
-  if (targetLanguage) console.log()
+  if (targetLanguage) {
+    console.info()
+  }
 
   const from = !isEmpty(fromAsString) ? dayjs(fromAsString).startOf('month').toDate() : null
   const to = !isEmpty(toAsString) ? dayjs(toAsString).endOf('month').toDate() : null
