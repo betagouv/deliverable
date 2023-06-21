@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/betagouv/deliverable/compare/v1.1.0...v1.2.0) (2023-06-21)
+
+
+### Features
+
+* add commit messages history source ([5a7e2f8](https://github.com/betagouv/deliverable/commit/5a7e2f88d75be13d86ab40bf32855800ad59f6f2))
+
 # [1.1.0](https://github.com/betagouv/deliverable/compare/v1.0.4...v1.1.0) (2023-06-21)
 
 
