@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/betagouv/deliverable/compare/v1.0.4...v1.1.0) (2023-06-21)
+
+
+### Features
+
+* add DOCX document generation via Pandoc ([d3d357d](https://github.com/betagouv/deliverable/commit/d3d357da7155f4513bf409dac9ac793dafff90b5))
+
 ## [1.0.4](https://github.com/betagouv/deliverable/compare/v1.0.3...v1.0.4) (2023-06-21)
 
 
